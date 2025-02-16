@@ -1,0 +1,18 @@
+Track all nodes in a chain in an array with references to the different pieces. Use a key reference so an effect can be shared and routed. Have the arrays be tracked in state. When something is disconnected reconnect the chain automatically. ToDestination will always be called on the last item, or maybe it will always be sent to a mixer that is connected to the output?
+
+Only the main app.js will ontain any tonejs related items, components will only touch the params if it is an instrument component, or the midi if it's a controller component.
+
+Instrument section shows in a tab view, a tab per instrument. Current active instrument is what will draw in the midi view
+
+Midi view with a pattern stamp editor
+
+Layout
+
+Top:
+    Playback + track controls/info
+
+Middle:
+    Instruments
+
+Bottom:
+    Midi/Sequencing
