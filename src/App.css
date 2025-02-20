@@ -2,3 +2,22 @@
   background-color: darkslategray;
   color: azure;
 }
+
+.instrument_selector {
+  display: flex;
+  list-style: none;
+  gap: 1rem;
+}
+
+.instrument_tab {
+
+  cursor: pointer;
+  display: inline-flex;
+  padding: 0 1rem;
+  border: 2px solid black;
+
+}
+
+.instrument_tab.active{
+  background-color: black;
+}
