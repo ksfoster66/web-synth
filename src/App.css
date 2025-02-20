@@ -21,3 +21,23 @@
 .instrument_tab.active{
   background-color: black;
 }
+
+#keyboard {
+  display: flex;
+}
+
+.key{
+  height: 4rem;
+  width: 3rem;
+  text-align: center;
+}
+
+.white_key{
+  background-color: white;
+  color: black;
+}
+
+.black_key{
+  background-color: black;
+  color: white;
+}

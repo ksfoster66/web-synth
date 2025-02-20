@@ -4,6 +4,7 @@ import './App.css';
 
 import InstrumentPanel from './components/Instruments/InstrumentPanel';
 import PlaybackControls from './components/Controls/PlaybackControls';
+import Keyboard from './components/Controls/Keyboard';
 
 function App() {
   const [synths, setSynths] = useState([[new Tone.Synth().toDestination()], [new Tone.MetalSynth().toDestination()]])
@@ -24,6 +25,15 @@ function App() {
     
     synths[currentInstrument][0].triggerAttackRelease(synthParams[currentInstrument], "8n");
   };
+
+  //Todo: voice management
+  const keyPressed = (freq) => {
+    synths[currentInstrument][0].triggerAttack(freq);
+  }
+
+  const keyReleased = (freq) => {
+    synths[currentInstrument][0].triggerRelease()
+  }
 
   const changeActiveInstrument = () => {
     setCurrentInstrument(()=>{
@@ -134,6 +144,7 @@ function App() {
           updateInstrument={updateInstrument}
         />
         <div>Midi section</div>
+        <Keyboard keyPressed={keyPressed} keyReleased={keyReleased}/>
         {/* Grid of buttons??
         With preset note time durations */}
       </header>

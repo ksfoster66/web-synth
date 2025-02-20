@@ -22,6 +22,5 @@ export default function InstrumentDisplay({instruments, currentInstrument, updat
         {instruments[currentInstrument].map((node, index) => (
             <InstrumentNode node={node} />
         ))}
-        <input type="range"  onChange={updateValues} min={20} max={20000} defaultValue={defaultFreq}/>
     </div>)
 }
