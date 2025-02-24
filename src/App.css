@@ -27,17 +27,52 @@
 }
 
 .key{
+  display: block;
   height: 4rem;
   width: 3rem;
   text-align: center;
+  justify-content: center;
+  padding: 0%;
 }
 
 .white_key{
   background-color: white;
+  height: 4rem;
+  width: 3rem;
   color: black;
 }
 
 .black_key{
   background-color: black;
+  height: 4rem;
+  width: 3rem;
   color: white;
+}
+
+.midi_track{
+  display: flex;
+  list-style: none;
+}
+
+.midi_note{
+  background-color: grey;
+  height: 1rem;
+  width: 1rem;
+  border: 1px solid black;
+}
+
+.midi_note.even{
+  background-color: lightgray;
+}
+
+.midi_note.odd{
+  background-color: darkgray;
+}
+
+.midi_note.even.active {
+  background-color: yellow;
+}
+
+.midi_note.odd.active{
+background-color: darkorange;
 }

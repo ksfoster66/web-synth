@@ -5,10 +5,20 @@ import './App.css';
 import InstrumentPanel from './components/Instruments/InstrumentPanel';
 import PlaybackControls from './components/Controls/PlaybackControls';
 import Keyboard from './components/Controls/Keyboard';
+import Midi from './components/Controls/Midi';
+import { log } from 'tone/build/esm/core/util/Debug';
 
 function App() {
   const [synths, setSynths] = useState([[new Tone.Synth().toDestination()], [new Tone.MetalSynth().toDestination()]])
   const [synthParams, setSynthParams] = useState(["C4", "C4"])
+  const [timeSignature, setTimeSignature] = useState({
+    noteValue: 4,
+    bars: 4
+  })
+
+  const [midiTrackData, setMidiTrackData] = useState([new Array(timeSignature.noteValue*timeSignature.bars).fill(""),new Array(timeSignature.noteValue*timeSignature.bars).fill("")])
+
+  
 
   //Array of instruments
   //active instrument
@@ -52,6 +62,10 @@ function App() {
     setSynthParams(currentParams => {
       return [...currentParams, "C4"]
     })
+
+    setMidiTrackData(currentTrackData =>{
+      return [...currentTrackData, new Array(timeSignature.noteValue*timeSignature.bars).fill("")]
+    })
   }
 
   const updateInstrument = (index, params) => {
@@ -85,9 +99,15 @@ function App() {
       const newSynths = [...prev]
       newSynths.splice(index, 1);
       return newSynths;
-    }
+    })
+
+    setMidiTrackData(prev => {
+      const newData = [...prev];
+      newData.splice(index, 1);
+      return newData;
+    })
       
-    )
+    
   }
 
   const addEffect = () => { //Add a parameter to dictate what type of effect to add
@@ -122,6 +142,35 @@ function App() {
 
   }
 
+  const updateMidiData = (instIndex, noteIndex) => {
+    console.log("Instrument: " + instIndex);
+    console.log("Midi note index: " + noteIndex);
+
+    setMidiTrackData(prev => {
+      const trackData = midiTrackData[instIndex];
+      const newTrackData = trackData.map((m, i)=>{
+        if (noteIndex === i){
+            if (m !==  ""){
+                return "";
+            }
+            else{
+                return "4n";
+            }
+        }
+        else return m;
+      })
+      const newData = prev.map((t,i)=>{
+        if (instIndex === i){
+          return newTrackData
+        }
+        return t;
+      })
+      return newData;
+    })
+    
+    
+  }
+
   return (
     <div className="App">
       <header className="App-header">
@@ -143,10 +192,8 @@ function App() {
           addEffect={addEffect}
           updateInstrument={updateInstrument}
         />
-        <div>Midi section</div>
+        <Midi midiData={midiTrackData} noteValue={4} bars={4} updateMidiData={updateMidiData} />
         <Keyboard keyPressed={keyPressed} keyReleased={keyReleased}/>
-        {/* Grid of buttons??
-        With preset note time durations */}
       </header>
     </div>
   );

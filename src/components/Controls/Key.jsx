@@ -8,7 +8,8 @@ export default function Key({note, octave, keyPressed, keyReleased}){
         keyReleased(freq)
     }
 
-    return <div>
-       <button className={note.includes('#') ? "key black_key" : "key white_key"} onMouseDown={onPress} onMouseUp={onRelease}>{freq}</button>
+    return <div className="key">
+       <button className={note.includes('#') ? "black_key" : "white_key"} onMouseDown={onPress} onMouseUp={onRelease}></button>
+       <label>{freq}</label>
     </div>
 }
